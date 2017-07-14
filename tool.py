@@ -13,7 +13,7 @@ def read_tweet_content(filename):
 				continue
 			p = re.compile(pattern)
 			m = p.search(line)
-			print(line)
+			#print(line)
 			content = m.group(1)
 			content_list.append(content)
 	return content_list
