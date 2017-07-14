@@ -1,0 +1,42 @@
+read : read each line and only use column 2 ,omit line1
+
+preprocess:from every document(each line) remove(replace by space) every chararacter that is not an alphaet and number,than case insensitive
+
+get each document(line) tokens:seperate by space
+tf-idf: return a set key is token(query) value is tf-idf value
+
+dump : dump tf-idf to a file(json)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

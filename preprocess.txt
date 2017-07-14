@@ -1,0 +1,1 @@
+preprocess:from every document(each line) remove every chararacter that is not a alphabet and numer,than change it to case insensitive
