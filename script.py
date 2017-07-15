@@ -14,4 +14,8 @@ token_2d_list = tfidf.tokenization(stem_list)
 print(token_2d_list[0])
 print(token_2d_list[1])
 
+print('res')
+res = tfidf.tf_idf(token_2d_list)
+print('dump')
+tfidf.dump_tfidf_json(res,'tfidf.json')
 

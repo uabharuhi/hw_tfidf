@@ -19,7 +19,7 @@ import tfidf
 
 res = tfidf.tf_idf([ ['i','have','have','a','dog'],
 	          ['i','like'] ])
-print(res)
+tfidf.dump_tfidf_json(res,'res.json')
 
 
 

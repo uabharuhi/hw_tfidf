@@ -2,10 +2,12 @@
 #and numer,than change it to case insensitive
 import re
 import math
+from tqdm import tqdm
+
 def preprocess(content_list):
 	stem_list =[]
 	for content in content_list:
-		stem =  re.sub(r'[^a-zA-z0-9]',' ',content)
+		stem =  re.sub(r'[^a-zA-Z0-9]',' ',content)
 		stem_lower = stem.lower()
 		stem_list.append(stem_lower)
 	return stem_list
@@ -23,9 +25,10 @@ def tokenization(stem_list):
 # [{word1,cnt1,word2,cnt2}(document1),{...}(document2),{}]
 # and a set of all words
 def tf_default(token_2d_list):
+	print('term frequency')
 	word_set = set() #set of string
 	tf_list = []
-	for tokens in token_2d_list:
+	for tokens in tqdm( token_2d_list):
 		tf = {}
 		for token in tokens:
 			if token not in word_set:
@@ -46,9 +49,10 @@ def tf_default(token_2d_list):
 # word_set : set of all word
 # tf_list : ...
 def idf_default(tf_list,word_set):
+	print('idf .......')
 	idf_dict = {}
 	N = len(tf_list)
-	for word in word_set:
+	for word in tqdm( word_set ):
 		idf_dict[word] = 0
 		occur_doc = 0
 		for tf in tf_list:
@@ -58,20 +62,27 @@ def idf_default(tf_list,word_set):
 
 	return idf_dict
 
-
-
+                               
+# return  like [{'i': 0.0, 'have': 1.0, 'a': 0.5, 'dog': 0.5}, {'i': 0.0, 'like': 1.0}]
 def tf_idf(token_2d_list ,tf_func=tf_default,idf_func=idf_default):
 	tf_list ,word_set = tf_func(token_2d_list)
 	idf_dict   = idf_func(tf_list,word_set)
 
 	tfidf_list =[]
 
-	for i,tf in enumerate(tf_list):
+	for i,tf in tqdm( enumerate(tf_list) ):
 		tfidf_list.append(tf)
 		for word in tf:
 			tfidf_list[i][word]*=idf_dict[word]
 			
 	return tfidf_list
+
+
+def dump_tfidf_json(tfidf_list,filename):
+	import json
+	with open(filename, "a") as f :
+		s = json.dumps( tfidf_list )
+		f.write(s)
 
 
 
