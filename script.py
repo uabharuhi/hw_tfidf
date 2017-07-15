@@ -13,3 +13,5 @@ print(stem_list[1])
 token_2d_list = tfidf.tokenization(stem_list)
 print(token_2d_list[0])
 print(token_2d_list[1])
+
+
