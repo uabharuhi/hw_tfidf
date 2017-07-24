@@ -22,12 +22,13 @@ def tokenization(stem_list):
 
 
 #tf function will return list of ft_count of set(key is word,count is term frequecy) in each line(document)
-# [{word1,cnt1,word2,cnt2}(document1),{...}(document2),{}]
+# [{word1:cnt1,word2:cnt2}(document1),{...}(document2),{}]
 # and a set of all words
 def tf_default(token_2d_list):
 	print('term frequency')
 	word_set = set() #set of string
 	tf_list = []
+	#max_freq = {}
 	for tokens in tqdm( token_2d_list):
 		tf = {}
 		for token in tokens:
@@ -41,8 +42,10 @@ def tf_default(token_2d_list):
 
 		for token in tf:
 			tf[token] /= max_freq
+			assert tf[token]<=1
 
 		tf_list.append(tf)
+	## divie by max_freq
 	return  tf_list ,word_set
 
 
@@ -59,7 +62,10 @@ def idf_default(tf_list,word_set):
 			if word in tf:
 				occur_doc+=1
 		idf_dict[ word ] =  math.log10( N/occur_doc )
-
+		if idf_dict[ word ]>5:
+			print('word :%s'%word)
+			print('occur:%d'%occur_doc)
+			print('value :%d')
 	return idf_dict
 
                                
@@ -69,12 +75,19 @@ def tf_idf(token_2d_list ,tf_func=tf_default,idf_func=idf_default):
 	idf_dict   = idf_func(tf_list,word_set)
 
 	tfidf_list =[]
-
-	for i,tf in tqdm( enumerate(tf_list) ):
+	print('tf idf .....')
+	print(len(tf_list))
+	for i,tf in enumerate(tf_list):
 		tfidf_list.append(tf)
 		for word in tf:
+			#assert idf_dict[word]<2
+			assert tfidf_list[i][word]<=1
+			assert idf_dict[word]<=5
 			tfidf_list[i][word]*=idf_dict[word]
 			
+	for  l in tfidf_list:
+		for word in l:
+			assert l[word]<=5		
 	return tfidf_list
 
 

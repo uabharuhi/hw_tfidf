@@ -66,21 +66,23 @@ $(document).ready(function(){
 				var tf_set = tfidf_obj[i];
 				
 				//console.log(tf_set);
-				console.log(i);
+				//console.log(i);
   				if(query_text in tf_set){
   					candidates[i] = tf_set[query_text]
   				}
   			}
   				// test grep ".\{1,10\}has.\{1,10\}" tfidf.json  -o | head -n 10
   				//sort
-			keysorted = Object.keys(candidates).sort(function(a,b){return candidates[b]-candidates[a]}); //closure
+			keysorted = Object.keys(candidates); //closure
 			//remove all previous result
 			$( ".res" ).remove();
+			console.log('1234')
+			//console.log(candidates.length)
 			var s = '';
 			for(var j=0;j<keysorted.length;++j){
-				console.log(j)
+				//console.log(j);
 				key = keysorted[j];
-				s = s +`<tr class='res'><td>${key}</td><td>${candidates[key]}</td></tr>`
+				s = s +`<tr class='res'><td>${key}</td><td>${candidates[key]}</td></tr>`;
 
 			}
 			$("#show tr:last").after(s);
