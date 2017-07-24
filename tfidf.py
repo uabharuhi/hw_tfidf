@@ -58,7 +58,7 @@ def idf_default(tf_list,word_set):
 		for tf in tf_list:
 			if word in tf:
 				occur_doc+=1
-		idf_dict[ word ] =  math.log2( N/occur_doc )
+		idf_dict[ word ] =  math.log10( N/occur_doc )
 
 	return idf_dict
 
